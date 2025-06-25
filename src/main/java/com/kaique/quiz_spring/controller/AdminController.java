@@ -28,17 +28,47 @@ public class AdminController {
     public ResponseEntity<Question> saveQuestion(@RequestBody QuestionDTO dto) {
         return new ResponseEntity<>(service.SaveQuestion(dto),HttpStatus.ACCEPTED);
     }
+    /*recebe um jason com formato
+    {
+        "body": "Qual é a capital da espanha?",
+        "answ": [
+        "São Paulo",
+        "madrid",
+        "Brasília",
+        "Salvador"
+        ],
+        "rightAnsw": 2 
+    }
+        rightAnsw é o index da resposta correta
+     */
+
     
     @DeleteMapping("question/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteQuestion(@PathVariable int id){
         return new ResponseEntity<>(service.deleteQuestion(id),HttpStatus.OK);
     }
+    /*
+     * apaga a questão via ID
+     */
+    
     
     @PutMapping("question/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Question> updateQuestion(@PathVariable int id, @RequestBody QuestionDTO dto) {
         return new ResponseEntity<>(service.updateQuestion(id, dto),HttpStatus.OK);
     }
-
+    /*
+     * edita a questão recebe um json e o id da questão a ser alterada
+     * {
+        "body": "Qual é a capital da noruega?",
+        "answ": [
+        "São Paulo",
+        "madrid",
+        "Brasília",
+        "Salvador"
+        ],
+        "rightAnsw": 2
+       }
+     */
 }

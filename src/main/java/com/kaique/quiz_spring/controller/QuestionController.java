@@ -27,11 +27,35 @@ public class QuestionController {
     public ResponseEntity<QuestionDTO> GetQuestion(@PathVariable int id){
         return new ResponseEntity<>(service.GetQuestion(id), HttpStatus.OK); 
     }
+    /*retorna um json no formato
+    {
+    "id": 2,
+    "body": "Qual é a capital do Brasil?",
+    "answ": [
+        "São Paulo",
+        "Rio de Janeiro",
+        "Brasília",
+        "Salvador"
+    ],
+    "rightAnsw": 0,
+    "option": 0
+    } 
+
+    rightAnsw e option são valores vazios, a verificação desses 2 é feito posteriormente ao enviar a resposta
+    */
     
-    @PostMapping("answ/{option}")
+
+
+    @PostMapping("answ")
     public ResponseEntity<String> chooseOption(@RequestBody QuestionDTO dto) {
         return new ResponseEntity<>(service.checkAnsw(dto),HttpStatus.ACCEPTED);
     }
+    /*deve receber um json no formato 
+     * {
+        "id" :"x",
+        "option" : "y"
+        }
+     */
 
 
     

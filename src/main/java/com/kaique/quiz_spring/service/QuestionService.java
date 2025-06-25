@@ -18,7 +18,7 @@ public class QuestionService {
     }
 
     public String checkAnsw(QuestionDTO dto) {
-        Question q = repo.findById(dto.getId()).get();
+        Question q = repo.findById(dto.getId()).orElseThrow(() -> new IllegalArgumentException("erro ao procurar questão"));
         if(q.getRightAnsw() == dto.getOption()){
             return "Acertou";
         }else{return "Errou";}

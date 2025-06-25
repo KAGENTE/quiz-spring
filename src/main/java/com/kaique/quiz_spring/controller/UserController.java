@@ -34,7 +34,13 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<User> signUpUser(@RequestBody UserDTO userDTO){
         return new ResponseEntity<>(service.saveNewUser(userDTO), HttpStatus.ACCEPTED);
+    }/*recebe um jason no formato
+    {
+        "name" : "exemplo",
+        "email" : "exemplo@gmail.com",
+        "password" : "12345"
     }
+     */
 
     @PostMapping("/login")
     public String loginUser(@RequestBody UserDTO userDTO) {
@@ -46,6 +52,11 @@ public class UserController {
         
         }else return "fail";
     }
-
+    /*recebe um json no formato:
+    {
+        "name" : "exemplo",
+        "password" : "12345"
+    }
+     */
     
 }
