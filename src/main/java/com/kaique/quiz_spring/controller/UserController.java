@@ -42,7 +42,7 @@ public class UserController {
         .authenticate(new UsernamePasswordAuthenticationToken(userDTO.getName(), userDTO.getPassword()));
 
         if(authentication.isAuthenticated()){
-            return jwtService.generateToken(userDTO.getName());
+            return jwtService.generateToken(userDTO);
         
         }else return "fail";
     }

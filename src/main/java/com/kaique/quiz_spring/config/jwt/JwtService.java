@@ -9,8 +9,15 @@ import java.util.Map;
 import java.util.function.Function;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import com.kaique.quiz_spring.model.User;
+import com.kaique.quiz_spring.model.UserDTO;
+import com.kaique.quiz_spring.repository.UserRepo;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -19,6 +26,9 @@ import io.jsonwebtoken.security.Keys;
 
 @Service
 public class JwtService {
+
+    @Autowired
+    private UserRepo repo;
 
     private String secretKey;
     
@@ -38,14 +48,16 @@ public class JwtService {
         }
 
 
-    public String generateToken(String name) {
+    public String generateToken(UserDTO user) {
         
+        User u = repo.findByName(user.getName()).get();
 
         Map<String, Object> claims = new HashMap<>();
 
         return Jwts.builder()
         .setClaims(claims)
-        .setSubject(name)
+        .setSubject(u.getName())
+        .claim("role",u .getRole())
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + 1000*60*30))
         .signWith(getKey(),SignatureAlgorithm.HS256).compact();

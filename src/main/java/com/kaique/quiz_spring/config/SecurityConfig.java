@@ -43,6 +43,7 @@ public class SecurityConfig {
    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
             http.csrf(customizer -> customizer.disable())
 				.authorizeHttpRequests(request -> request
+                .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/user/register", "/user/login").permitAll()
                 .anyRequest().authenticated())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

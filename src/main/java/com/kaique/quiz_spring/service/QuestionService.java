@@ -17,10 +17,6 @@ public class QuestionService {
         return new QuestionDTO(repo.findById(id).get());
     }
 
-    public Question SaveQuestion(QuestionDTO dto){
-        return repo.save(new Question(dto));
-    }
-
     public String checkAnsw(QuestionDTO dto) {
         Question q = repo.findById(dto.getId()).get();
         if(q.getRightAnsw() == dto.getOption()){
@@ -28,6 +24,11 @@ public class QuestionService {
         }else{return "Errou";}
 
     }
+
+    public Question SaveQuestion(QuestionDTO dto){
+        return repo.save(new Question(dto));
+    }
+
 
     public String deleteQuestion(int id) {
         if(repo.findById(id).isPresent()){

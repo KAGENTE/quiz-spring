@@ -27,7 +27,7 @@ public class UserService {
         u.setName(userDTO.getName());
         u.setEmail(userDTO.getEmail());
         u.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        u.setRole(Role.User);
+        u.setRole(Role.USER);
         return repo.save(u);
     }
 
